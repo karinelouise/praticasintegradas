@@ -11,7 +11,7 @@ class AppTest(unittest.TestCase):
         self.assertEqual("<h1>Hello, I'm Alive!</h1>", response.get_data(as_text=True)
                           , "Erro no test_print_health_check!")
 
-        def test_hello_fail(self):
+    def test_hello_fail(self):
         response = self.app.get("/hello")
         self.assertEqual(400, response.status_code, "Erro no test_http_code!")
         self.assertEqual(
@@ -19,5 +19,13 @@ class AppTest(unittest.TestCase):
             response.get_data(as_text=True),
             "Erro no test_hello_fail!",
         )
-
+        
+    def test_hello_success(self):
+        response = self.app.get("/hello?name=John")
+        self.assertEqual(200, response.status_code, "Erro no test_http_code!")
+        self.assertEqual(
+            "Hello, John!",
+            response.get_data(as_text=True),
+            "Erro no test_hello_success!",
+        )
         
